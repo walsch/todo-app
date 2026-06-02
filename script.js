@@ -1,6 +1,22 @@
 const todoForm = document.getElementById("todo-form");
 const todoInput = document.getElementById("todo-input");
 const todoList = document.getElementById("todo-list");
+const themeToggle = document.getElementById("theme-toggle");
+
+function applyTheme(isDark) {
+  document.body.classList.toggle("dark", isDark);
+  themeToggle.textContent = isDark ? "☀️" : "🌙";
+  themeToggle.setAttribute("aria-label", isDark ? "Switch to light mode" : "Switch to dark mode");
+}
+
+const savedTheme = localStorage.getItem("theme");
+applyTheme(savedTheme === "dark");
+
+themeToggle.addEventListener("click", () => {
+  const isDark = !document.body.classList.contains("dark");
+  applyTheme(isDark);
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+});
 
 todoForm.addEventListener("submit", (event) => {
   event.preventDefault();
